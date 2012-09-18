@@ -48,15 +48,6 @@ package mockolate.ingredients
 			mocker.calls(fn, args);
 			return this;
 		}
-
-		/**
-		 * @copy MockingCouverture#callsWithArgumentsAndReturns()
-		 */
-		public function callsWithArgumentsAndReturns(fn:Function, args:Array=null):IMockingCouverture
-		{
-			mocker.callsWithArgumentsAndReturns(fn, args);
-			return this;
-		}
 		
 		/**
 		 * @copy MockingCouverture#callsWithInvocation()

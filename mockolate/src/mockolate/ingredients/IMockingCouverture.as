@@ -45,19 +45,6 @@ package mockolate.ingredients
 		 * </listing> 
 		 */
 		function calls(fn:Function, args:Array=null):IMockingCouverture;
-
-		/**
-		 * Calls the given Function with the Invocation.arguments when the
-		 * current Expectation is invoked and returns the result.
-		 *
-		 * @example
-		 * <listing version="3.0">
-		 *	mock(instance).method("message").callsWithArgumentsAndReturns(function(a:int, b:int):void {
-		 *		return a + b;
-		 *	}, [1, 2]);
-		 * </listing>
-		 */
-		function callsWithArgumentsAndReturns(fn:Function, args:Array=null):IMockingCouverture;
 		
 		/**
 		 * Calls the given Function with the Invocation when the current 

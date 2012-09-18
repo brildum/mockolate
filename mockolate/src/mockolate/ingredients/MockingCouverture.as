@@ -31,7 +31,6 @@ package mockolate.ingredients
 	import mockolate.ingredients.answers.DispatchesEventAnswer;
 	import mockolate.ingredients.answers.MethodInvokingAnswer;
 	import mockolate.ingredients.answers.ReturnsAnswer;
-	import mockolate.ingredients.answers.ReturnsCallAnswer;
 	import mockolate.ingredients.answers.ThrowsAnswer;
 
 	CONFIG::useFlexClasses
@@ -533,23 +532,6 @@ package mockolate.ingredients
 		public function calls(fn:Function, args:Array=null):IMockingCouverture
 		{
 			addCalls(fn, args);
-			return this;
-		}
-
-		/**
-		 * Calls the given Function with the Invocation.arguments when the
-		 * current Expectation is invoked and returns the result.
-		 *
-		 * @example
-		 * <listing version="3.0">
-		 *	mock(instance).method("message").callsWithArgumentsAndReturns(function(a:int, b:int):void {
-		 *		return a + b;
-		 *	}, [1, 2]);
-		 * </listing>
-		 */
-		public function callsWithArgumentsAndReturns(fn:Function, args:Array=null):IMockingCouverture
-		{
-			addCallsWithArgumentsAndReturnsAnswer(fn, args);
 			return this;
 		}
 
@@ -1210,18 +1192,6 @@ package mockolate.ingredients
 		protected function addCalls(fn:Function, args:Array=null):void
 		{
 			addAnswer(new CallsAnswer(fn, args));
-		}
-
-		/**
-		 * @private
-		 */
-		protected function addCallsWithArgumentsAndReturnsAnswer(fn:Function, args:Array=null):void
-		{
-			addAnswer(new CallsWithInvocationAnswer(function(invocation:Invocation):* {
-				var fnArgs:Array = (invocation.arguments || []);
-				fnArgs = fnArgs.concat(args || []);
-				return fn.apply(null, fnArgs);
-			}));
 		}
 
 		/**
