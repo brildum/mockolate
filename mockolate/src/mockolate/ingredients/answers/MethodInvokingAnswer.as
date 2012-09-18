@@ -23,8 +23,8 @@ package mockolate.ingredients.answers
 	 */
     public class MethodInvokingAnswer implements Answer
     {
-        private var _target:Object;
-        private var _methodName:String;
+        protected var _target:Object;
+        protected var _methodName:String;
         
 		/**
 		 * Constructor.
