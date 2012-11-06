@@ -22,20 +22,27 @@ package mockolate.ingredients.answers
 	 * 
 	 * @author drewbourne
 	 */
-    public class MethodReturningAnswer extends MethodInvokingAnswer
+    public class MethodReturningAnswer implements Answer
     {
+        private var _target:Object;
+        private var _methodName:String;
+
 		/**
-		 * @inheritDoc
+		 * Constructor.
+		 * 
+		 * @param target
+		 * @param methodName
 		 */
         public function MethodReturningAnswer(target:Object, methodName:String)
         {
-            super(target, methodName);
+            _target = target;
+            _methodName = methodName;
         }
 
 		/**
 		 * @inheritDoc
 		 */
-        override public function invoke(invocation:Invocation):*
+        public function invoke(invocation:Invocation):*
         {
             return _target[_methodName].apply(_target, invocation.arguments);            
         }
