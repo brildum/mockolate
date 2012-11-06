@@ -57,14 +57,37 @@ package mockolate.decorations
 		 */		
 		protected function initialize():void 
 		{
-			if (!(this.mockolate.target is IEventDispatcher))
-			{
+			if (this.mockolate.target is DisplayObject)
+				initializeForDisplayObject();
+			else if (this.mockolate.target is IEventDispatcher)
+				initializeForIEventDispatcher();
+			else
 				throw new MockolateError(["Mockolate target is not an IEventDispatcher, target: {}", [mockolate.target]], mockolate, mockolate.target);
-			}
-
+		}
+		
+		/**
+		 * Initializes the <code>eventDispatcher</code> for an IEventDispatcher.
+		 */
+		protected function initializeForIEventDispatcher():void 
+		{
+			_eventDispatcher = new EventDispatcher(this.mockolate.target);
+			
 			for each (var methodName:String in _eventDispatcherMethods)
 			{
 				mocker.method(methodName).answers(new MethodReturningAnswer(_eventDispatcher, methodName));    
+			}
+		}
+		
+		/**
+		 * Initializes the <code>eventDispatcher</code> for a DisplayObject.
+		 */
+		protected function initializeForDisplayObject():void 
+		{
+			_eventDispatcher = this.mockolate.target as IEventDispatcher;
+			
+			for each (var methodName:String in _eventDispatcherMethods)
+			{
+				mocker.method(methodName).callsSuper();    
 			}
 		}
 	}
